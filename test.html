@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>대화 성향 테스트</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>테스트 • 노유노미 스튜디오</title>
+<link rel="stylesheet" href="style.css"></head>
 <body>
-  <main class="container" id="app">
-    <div class="progress"><span id="step">1</span> / <span id="total">8</span></div>
-    <h2 id="qtext">질문 텍스트</h2>
-    <div class="choices">
-      <button class="btn" id="optA"></button>
-      <button class="btn outline" id="optB"></button>
-    </div>
-  </main>
-  <script src="test.js"></script>
-</body>
-</html>
+<main class="app" id="app">
+<header class="brand">
+  <div class="brand-top">Know You Know Me Studio</div>
+  <h1>나를 알고, 너를 이해하는 시공간</h1>
+  <p class="tagline">연애 기반 상황형 20문항 테스트</p>
+</header>
+<div class="step"><span id="stepText">1 / 20</span><span id="axisText">IE</span></div>
+<div class="progress"><div id="prog"></div></div>
+<section class="card">
+  <div class="q" id="qtext">로딩 중…</div>
+  <div class="choice">
+    <button class="btn block" id="optA">A</button>
+    <button class="btn block ghost" id="optB">B</button>
+  </div>
+  <p class="note">빠르게 선택해도 좋고, 잠시 생각해도 괜찮아요.</p>
+</section>
+<footer class="foot"><a class="link" href="index.html">처음으로</a></footer>
+</main>
+<script src="questions.js"></script><script src="test.js"></script>
+</body></html>

@@ -1,62 +1,70 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>결과 • 대화 성향 테스트</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>결과 • 노유노미 스튜디오</title><link rel="stylesheet" href="style.css"></head>
 <body>
-  <main class="container">
-    <h2>당신의 대화 스타일</h2>
-    <div id="badge" class="badge">로딩...</div>
-    <p id="desc"></p>
-    <hr>
-    <h3>오늘 바로 써먹는 추천 문장</h3>
-    <ul id="advice" class="advice"></ul>
-
-    <div class="actions">
-      <a class="btn" href="test.html">다시 테스트하기</a>
-      <a class="btn outline" href="https://blog.naver.com/hopeplaylist" target="_blank" rel="noopener">지혜의샘 블로그 가기</a>
+<main class="result-wrap">
+<header class="brand">
+  <div class="brand-top">Know You Know Me Studio</div>
+  <h1 class="res-head">사랑에는 정답이 없어요.<br>서로의 속도를 배우는 과정이죠.</h1>
+  <p class="kicker">나를 알고, 너를 이해하는 시공간</p>
+</header>
+<section class="box">
+  <div class="type" id="typeCode">ISTJ</div>
+  <div class="nic" id="nicName">현실을 단단히 지탱하는 사람</div>
+  <p id="typeDesc">로딩 중…</p>
+</section>
+<section class="grid">
+  <div class="box"><h3>요약</h3><ul class="clean" id="bullets"></ul></div>
+  <div class="box"><h3>대화 팁</h3><ul class="clean" id="tips"></ul></div>
+  <div class="box"><h3>나의 성향 막대</h3>
+    <div class="bars">
+      <div>I / E <div class="bar"><i id="barIE"></i></div></div>
+      <div>S / N <div class="bar"><i id="barSN"></i></div></div>
+      <div>T / F <div class="bar"><i id="barTF"></i></div></div>
+      <div>J / P <div class="bar"><i id="barPJ"></i></div></div>
     </div>
-
-    <p class="note small">* 이 결과는 참고용이며 개인을 단정하지 않습니다.</p>
-  </main>
-
-  <script>
-    const params = new URLSearchParams(location.search);
-    const type = params.get('type') || 'FT';
-    const map = {
-      'F': {
-        badge: '따뜻한 공감형 🟦 (F)',
-        desc: '상대의 감정을 먼저 살피고 공감으로 관계를 지키는 타입. 해결책은 공감 이후에 제시하면 가장 힘이 납니다.',
-        advice: [
-          '“그랬구나, 많이 힘들었겠다.”',
-          '“네가 편해지는 방법부터 같이 생각해보자.”',
-          '“조금만 더 말해줄래? 네 마음이 궁금해.”',
-          '“해결책 이야기해도 괜찮을까?”'
-        ]
-      },
-      'T': {
-        badge: '현실 해결형 🟥 (T)',
-        desc: '문제를 구조화하고 빠르게 해결 방향을 제시하는 타입. 먼저 감정을 확인해 주면 제안이 훨씬 잘 받아들여집니다.',
-        advice: [
-          '“먼저 네 마음부터 확인하고 싶어.”',
-          '“가장 힘든 포인트가 뭐였어?”',
-          '“내가 아이디어 몇 개 제안해도 괜찮을까?”',
-          '“싫으면 언제든 멈춰도 돼.”'
-        ]
-      }
-    };
-    const info = map[type] || map['F'];
-    document.getElementById('badge').textContent = info.badge;
-    document.getElementById('desc').textContent = info.desc;
-    const ul = document.getElementById('advice');
-    info.advice.forEach(t => {
-      const li = document.createElement('li');
-      li.textContent = '• ' + t;
-      ul.appendChild(li);
-    });
-  </script>
-</body>
-</html>
+  </div>
+</section>
+<section class="box">
+  <p><em>노유노미 시그니처</em></p>
+  <p>서툴러도 괜찮아요. 마음은 느린 속도로 자라니까요.<br>한 걸음씩, 서로의 방식에 스며가 볼까요?</p>
+  <div class="actions">
+    <a class="btn" href="test.html">다시 테스트</a>
+    <a class="btn ghost" href="index.html">처음으로</a>
+  </div>
+  <small>※ 이 결과는 참고용이며 사람을 단정하지 않습니다.</small>
+</section>
+<footer class="foot"><a class="link" href="https://blog.naver.com/hopeplaylist" target="_blank" rel="noopener">지혜의샘 블로그</a></footer>
+</main>
+<script>
+const LABELS={
+  "INTJ":["조용하지만 깊이 연결되는 사람",
+    ["안정감을 느낄 때 마음을 연다","감정을 깊이 소화한 후 표현한다","신뢰가 쌓이면 헌신적이다"],
+    ["감정을 말로 옮기는 연습","혼자만의 시간 존중","서운할 때 조금 더 표현하기"]],
+  "ENFP":["따뜻하게 불붙는 자유형",
+    ["감정의 온도가 오를 때 에너지가 커진다","사람과 연결될 때 영감이 살아난다","관계에서 진심과 가능성을 본다"],
+    ["약속/리듬을 가볍게라도 유지","과부하 올 때 휴식 신호 만들기","구체적 행동 한 가지로 마무리"]],
+  "ISTJ":["현실을 단단히 지탱하는 사람",
+    ["일정/원칙이 지켜질 때 안심한다","말보다 행동으로 보여주는 편","작지만 꾸준한 신뢰를 중시"],
+    ["감정 단서 포착 연습","상대 감정 질문 한 번 더","유연한 변경 여지 남겨두기"]]
+};
+function nicFor(code){
+  if(LABELS[code]) return LABELS[code];
+  const mapNick={"NF":"마음을 잇는 사람","NT":"의미를 설계하는 사람","SF":"따뜻한 현실주의자","ST":"단단한 실행가"};
+  const pair=code[1]+code[2];const nic=mapNick[pair]||"당신만의 방식이 있는 사람";
+  return [nic,["당신의 방식에는 이유가 있어요","안정과 진심을 중요하게 여깁니다","상대의 다른 방식을 배우려는 태도가 강점이에요"],["말로 감정 한 줄 남기기","상대의 속도를 존중하기","하루 한 가지 따뜻한 표현"]];
+}
+const saved=localStorage.getItem('nykm_result');if(!saved){location.href='test.html';}
+const {code,pct}=JSON.parse(saved);const data=LABELS[code]||nicFor(code);
+document.getElementById('typeCode').textContent=code;
+document.getElementById('nicName').textContent=data[0];
+document.getElementById('typeDesc').textContent='사랑에는 정답이 없어요. 다만 서로의 속도를 배우는 과정에서, 당신의 방식이 이렇게 드러납니다.';
+const b=document.getElementById('bullets');data[1].forEach(t=>{const li=document.createElement('li');li.textContent='• '+t;b.appendChild(li);});
+const t=document.getElementById('tips');data[2].forEach(v=>{const li=document.createElement('li');li.textContent='• '+v;t.appendChild(li);});
+document.getElementById('barIE').style.width=pct.IE[0]+'%';
+document.getElementById('barSN').style.width=pct.SN[0]+'%';
+document.getElementById('barTF').style.width=pct.TF[0]+'%';
+document.getElementById('barPJ').style.width=pct.PJ[0]+'%';
+</script>
+</body></html>
