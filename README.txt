@@ -1,0 +1,1 @@
+Patched version linking to SomangPlaylist blog.
