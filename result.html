@@ -3,47 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>결과 • 노유노미 스튜디오</title>
+  <title>연애 기반 상황형 20문항 테스트 • 결과</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="theme-cream">
-  <main class="result-wrap">
-    <header class="brand">
-      <div class="brand-top">Know You Know Me Studio</div>
-      <h1 class="res-head">사랑에는 정답이 없어요.<br/>서로의 속도를 배우는 과정이죠.</h1>
-      <p class="kicker">나를 알고, 너를 이해하는 시공간</p>
-    </header>
+  <div class="app-viewport">
+    <main class="result-wrap">
+      <header class="brand center">
+        <div class="brand-top">Know You Know Me Studio</div>
+        <h1>나를 알고, 너를 이해하는 시공간</h1>
+        <p class="tagline">연애 기반 상황형 20문항 테스트</p>
+      </header>
 
-    <section class="box">
-      <div class="type" id="typeCode">ISTJ</div>
-      <div class="nic" id="nicName">현실을 단단히 지탱하는 사람</div>
-      <p id="typeDesc">서툴러도 괜찮아요. 마음은 느린 속도로 자라니까요. 한 걸음씩, 서로의 방식에 스며가 볼까요?</p>
-    </section>
+      <section class="box">
+        <h2 class="res-head" id="typeCode">ISTJ</h2>
+        <p class="center" id="nicName">현실을 단단히 지탱하는 사람</p>
+        <p class="center" id="typeDesc">서툴러도 괜찮아요. 마음은 느린 속도로 자라니까요. 한 걸음씩, 서로의 방식에 스며가 볼까요?</p>
+      </section>
 
-    <section class="grid">
-      <div class="box"><h3>요약</h3><ul class="clean" id="bullets"></ul></div>
-      <div class="box"><h3>대화 팁</h3><ul class="clean" id="tips"></ul></div>
-      <div class="box"><h3>나의 성향 막대</h3>
-        <div class="bars">
-          <div>I / E <div class="bar"><i id="barIE"></i></div></div>
-          <div>S / N <div class="bar"><i id="barSN"></i></div></div>
-          <div>T / F <div class="bar"><i id="barTF"></i></div></div>
-          <div>J / P <div class="bar"><i id="barPJ"></i></div></div>
+      <section class="grid">
+        <div class="box"><h3>요약</h3><ul class="clean" id="bullets"></ul></div>
+        <div class="box"><h3>대화 팁</h3><ul class="clean" id="tips"></ul></div>
+        <div class="box">
+          <h3>나의 성향 막대</h3>
+          <div class="bars">
+            <div>I / E <div class="bar"><i id="barIE"></i></div></div>
+            <div>S / N <div class="bar"><i id="barSN"></i></div></div>
+            <div>T / F <div class="bar"><i id="barTF"></i></div></div>
+            <div>J / P <div class="bar"><i id="barPJ"></i></div></div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="box">
-      <p><em>노유노미 시그니처</em></p>
-      <p>사람은 각자 다른 속도로 사랑을 배웁니다. 지금 여기의 나에게 다정해지는 것, 그게 시작입니다.</p>
-      <div class="actions">
-        <a class="btn" href="test.html">다시 테스트</a>
-        <a class="btn ghost" href="index.html">처음으로</a>
-      </div>
-      <small>※ 이 결과는 참고용이며 사람을 단정하지 않습니다.</small>
-    </section>
-    <footer class="foot"><a class="link" href="https://blog.naver.com/hopeplaylist" target="_blank" rel="noopener">지혜의샘 블로그</a></footer>
-  </main>
+      <section class="center" style="margin-top:14px">
+        <a class="btn primary" href="test.html">다시 테스트</a>
+        <a class="btn" style="margin-left:8px" href="index.html">처음으로</a>
+      </section>
+    </main>
+  </div>
   <script>
   const LABELS={"INTJ":["조용하지만 깊이 연결되는 사람",["안정감을 느낄 때 마음을 연다","감정을 깊이 소화한 후 표현한다","신뢰가 쌓이면 헌신적이다"],["감정을 말로 옮기는 연습","혼자만의 시간 존중","서운할 때 조금 더 표현하기"]],
                "ENFP":["따뜻하게 불붙는 자유형",["감정의 온도가 오를 때 에너지가 커진다","사람과 연결될 때 영감이 살아난다","관계에서 진심과 가능성을 본다"],["약속/리듬 가볍게 유지","과부하 올 때 휴식 신호","구체적 행동 한 가지로 마무리"]],
