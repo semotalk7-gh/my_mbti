@@ -17,11 +17,7 @@ function render(){const it=QUESTIONS[state.idx]; if(!it){return finish();}
 }
 function inc(k,v){state.score[k]=(state.score[k]||0)+v;}
 function choose(v){inc(v,1); state.answers.push(v); next();}
-function neutral(axis){ // add 0.5 to both sides of the current axis
-  const map={IE:['I','E'],SN:['S','N'],TF:['T','F'],PJ:['J','P']};
-  const pair=map[axis]; inc(pair[0],0.5); inc(pair[1],0.5);
-  state.answers.push('N'); next();
-}
+function neutral(axis){const map={IE:['I','E'],SN:['S','N'],TF:['T','F'],PJ:['J','P']}; const [L,R]=map[axis]; inc(L,0.5); inc(R,0.5); state.answers.push('N'); next();}
 function next(){state.idx++; if(state.idx>=QUESTIONS.length){finish();} else render();}
 function finish(){const IE=state.score.I>=state.score.E?'I':'E'; const SN=state.score.S>=state.score.N?'S':'N'; const TF=state.score.T>=state.score.F?'T':'F'; const PJ=state.score.J>=state.score.P?'J':'P';
  const code=IE+SN+TF+PJ;

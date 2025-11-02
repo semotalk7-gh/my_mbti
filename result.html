@@ -23,23 +23,47 @@
       </section>
 
       <section class="grid">
-        <div class="box"><h3>요약</h3><ul class="clean" id="bullets"></ul></div>
-        <div class="box"><h3>대화 팁</h3><ul class="clean" id="tips"></ul></div>
+        <div class="box">
+          <h3>요약</h3>
+          <ul class="clean" id="bullets"></ul>
+        </div>
         <div class="box">
           <h3>나의 성향 막대</h3>
           <div class="bars">
-            <div>I / E <div class="bar"><i id="barIE"></i></div></div>
-            <div>S / N <div class="bar"><i id="barSN"></i></div></div>
-            <div>T / F <div class="bar"><i id="barTF"></i></div></div>
-            <div>J / P <div class="bar"><i id="barPJ"></i></div></div>
+            <div class="bar-row">I / E<div class="bar"><i id="barIE"></i></div><div class="perc" id="pIE">0%</div></div>
+            <div class="bar-row">S / N<div class="bar"><i id="barSN"></i></div><div class="perc" id="pSN">0%</div></div>
+            <div class="bar-row">T / F<div class="bar"><i id="barTF"></i></div><div class="perc" id="pTF">0%</div></div>
+            <div class="bar-row">J / P<div class="bar"><i id="barPJ"></i></div><div class="perc" id="pPJ">0%</div></div>
           </div>
+          <div class="explain">
+            <div class="muted">퍼센트는 <b>왼쪽 성향</b>의 점유율입니다. 예: I/E에서 82% → I 82%, E 18%.</div>
+            <div id="axisExplain"></div>
+          </div>
+        </div>
+        <div class="box">
+          <h3>대화 팁</h3>
+          <ul class="clean" id="tips"></ul>
+        </div>
+        <div class="box">
+          <h3>전문적 해석 라벨</h3>
+          <p class="small">
+            • 본 그래프는 <b>상대적 선호 분포</b>를 시각화한 것으로, 의료·임상 진단이 아닙니다.<br/>
+            • 동일인도 <b>상황/관계에 따라 변동</b>될 수 있습니다.<br/>
+            • 결과 사용 시 <b>상대의 다양성을 존중</b>해 주세요.
+          </p>
         </div>
       </section>
 
-      <section class="center" style="margin-top:14px">
-        <a class="btn cta-blue" href="test.html">다시 테스트</a>
+      <section class="share">
+        <button class="btn cta-blue" id="btnShare">공유하기</button>
+        <button class="btn" id="btnCard">이미지 저장</button>
+      </section>
+
+      <section class="center" style="margin-top:8px">
+        <a class="btn" href="test.html">다시 테스트</a>
         <a class="btn" style="margin-left:8px" href="index.html">처음으로</a>
       </section>
+      <canvas id="card" width="1080" height="1920"></canvas>
     </main>
   </div>
   <script>
@@ -53,10 +77,59 @@
   document.getElementById('nicName').textContent=data[0];
   const b=document.getElementById('bullets');data[1].forEach(t=>{const li=document.createElement('li');li.textContent='• '+t;b.appendChild(li);});
   const t=document.getElementById('tips');data[2].forEach(v=>{const li=document.createElement('li');li.textContent='• '+v;t.appendChild(li);});
-  document.getElementById('barIE').style.width=pct.IE[0]+'%';
-  document.getElementById('barSN').style.width=pct.SN[0]+'%';
-  document.getElementById('barTF').style.width=pct.TF[0]+'%';
-  document.getElementById('barPJ').style.width=pct.PJ[0]+'%';
+
+  function setBar(id,val){document.getElementById('bar'+id).style.width=val+'%';document.getElementById('p'+id).textContent=val+'%';}
+  setBar('IE',pct.IE[0]); setBar('SN',pct.SN[0]); setBar('TF',pct.TF[0]); setBar('PJ',pct.PJ[0]);
+
+  function microExplain(pair,leftPct){
+    const L={"IE":"I","SN":"S","TF":"T","PJ":"J"}[pair], R={"IE":"E","SN":"N","TF":"F","PJ":"P"}[pair];
+    let nuance="";
+    if(leftPct>=85) nuance = L+" 매우 강함 (거의 일관)";
+    else if(leftPct>=65) nuance = L+" 우세 (상황 따라 반대 성향 소폭)";
+    else if(leftPct>=55) nuance = L+" 약 우세 (균형형에 가깝다)";
+    else if(leftPct>45) nuance = "균형형 (상황 의존)";
+    else if(leftPct>35) nuance = R+" 약 우세";
+    else if(leftPct>15) nuance = R+" 우세";
+    else nuance = R+" 매우 강함";
+    return pair.replace('/','')+" : "+nuance+" · "+L+" "+leftPct+"% / "+R+" "+(100-leftPct)+"%";
+  }
+  const ax=document.getElementById('axisExplain');
+  ['IE','SN','TF','PJ'].forEach(k=>{
+    const p = k==='IE'?pct.IE[0]:k==='SN'?pct.SN[0]:k==='TF'?pct.TF[0]:pct.PJ[0];
+    const div=document.createElement('div'); div.textContent="• "+microExplain(k,p); ax.appendChild(div);
+  });
+
+  // Share buttons
+  document.getElementById('btnShare').onclick=async()=>{
+    const shareData={title:'노유노미 테스트 결과',text:`내 결과: ${code} (I/E ${pct.IE[0]}%, S/N ${pct.SN[0]}%, T/F ${pct.TF[0]}%, J/P ${pct.PJ[0]}%)`,url:location.href};
+    if(navigator.share){try{await navigator.share(shareData);}catch(e){}} else {
+      try{await navigator.clipboard.writeText(shareData.text+' '+shareData.url); alert('공유 텍스트를 클립보드에 복사했습니다.');}
+      catch(e){alert('복사가 제한된 환경입니다. 결과 페이지 주소를 직접 공유해 주세요.');}
+    }
+  };
+  document.getElementById('btnCard').onclick=()=>{
+    const c=document.getElementById('card'),ctx=c.getContext('2d');
+    ctx.fillStyle='#0f1226'; ctx.fillRect(0,0,c.width,c.height);
+    const pad=80, w=c.width-2*pad, h=c.height-2*pad, x=pad, y=pad;
+    ctx.fillStyle='#ffffff'; ctx.shadowColor='rgba(0,0,0,.25)'; ctx.shadowBlur=40;
+    const r=40; ctx.beginPath();
+    ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); ctx.fill(); ctx.shadowBlur=0;
+    ctx.fillStyle='#1a1a1a'; ctx.font='bold 60px Pretendard, Arial'; ctx.fillText('나를 알고, 너를 이해하는 시공간', x+40, y+120);
+    ctx.font='28px Pretendard, Arial'; ctx.fillStyle='#6b6b6b'; ctx.fillText('연애 기반 상황형 20문항 테스트', x+40, y+170);
+    ctx.fillStyle='#1a1a1a'; ctx.font='bold 140px Pretendard, Arial'; ctx.fillText(code, x+40, y+340);
+    const bars=[['I / E',pct.IE[0]],['S / N',pct.SN[0]],['T / F',pct.TF[0]],['J / P',pct.PJ[0]]];
+    ctx.font='36px Pretendard, Arial';
+    const bx=x+40, by=y+420, bw=w-80, bh=22, gap=90;
+    bars.forEach((b,i)=>{
+      ctx.fillStyle='#6b6b6b'; ctx.fillText(b[0], bx, by+i*gap-12);
+      ctx.fillStyle='#eceae4'; ctx.fillRect(bx, by+i*gap, bw, bh);
+      ctx.fillStyle='#1a1a1a'; ctx.fillRect(bx, by+i*gap, Math.round(bw*b[1]/100), bh);
+      ctx.fillStyle='#333'; ctx.textAlign='right'; ctx.fillText(b[1]+'%', bx+bw, by+i*gap-12); ctx.textAlign='start';
+    });
+    ctx.fillStyle='#6b6b6b'; ctx.font='28px Pretendard, Arial'; ctx.fillText('Know You Know Me Studio', x+40, y+h-60);
+    ctx.textAlign='right'; ctx.fillText('nykm.studio/test', x+w-40, y+h-60); ctx.textAlign='start';
+    const a=document.createElement('a'); a.download='nykm-result.png'; a.href=c.toDataURL('image/png'); a.click();
+  };
   </script>
 </body>
 </html>
